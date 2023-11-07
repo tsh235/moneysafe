@@ -26,18 +26,14 @@ financeForm.addEventListener('submit', (e) => {
   financeAmount.textContent = `${amount.toLocaleString()} ₽`; // на русской раскладке значок рубля alt+ctrl+8
 });
 
+//открытие-закрытие отчета
 financeReport.addEventListener('click', (e) => {
   e.preventDefault();
-  report.classList.add('report_open');
-  
-  report.addEventListener('click', ({target}) => {
-    console.log('target: ', target);
-
-    if (target.classList.contains('report__close')) {
-      report.classList.remove('report_open');
-    }
-    
-  });
-
+  report.classList.add('report_open');  
 });
 
+window.addEventListener('click', ({target}) => {
+  if (!target.closest('.report') && !target.closest('.finance__report') || target.classList.contains('report__close')) {
+    report.classList.remove('report_open');
+  }
+});
