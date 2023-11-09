@@ -194,7 +194,7 @@ fieldset {
 }
 
 .report_open {
-  display: block;
+  display: flex;
 }
 
 .report__container {
@@ -288,6 +288,11 @@ fieldset {
 .report__cell {
   padding: 10px 15px;
   color: #333;
+  white-space: nowrap;
+}
+
+.report__cell_amount {
+  text-align: right;
 }
 
 .report__button_table {
