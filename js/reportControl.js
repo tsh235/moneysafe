@@ -81,6 +81,7 @@ export const reportControl = () => {
       const reportRow = btnDel.closest('.report__row');
       reportRow.remove();
       financeControl();
+      actualData = await getData('/finance');
       clearChart();
     }
   });
