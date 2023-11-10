@@ -120,7 +120,7 @@ export const reportControl = () => {
   
     const url = queryString ? `/finance?${queryString}` : '/finance';
   
-    const actualData = await getData(url);
+    actualData = await getData(url);
   
     renderReport(actualData);
     clearChart();
