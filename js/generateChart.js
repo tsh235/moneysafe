@@ -63,7 +63,7 @@ export const generateChart = (data) => {
         {
           label: 'Баланс',
           data: balanceAmounts,
-          borderWidth: 2,
+          borderWidth: 5,
           hidden: false,
         },
       ],
