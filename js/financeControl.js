@@ -31,7 +31,7 @@ const addNewOperation = async (e) => {
   financeForm.reset();
 };
 
-export const financeControll = async () => {
+export const financeControl = async () => {
   const operations = await getData('/finance');
 
   amount = operations.reduce((acc, item) => {

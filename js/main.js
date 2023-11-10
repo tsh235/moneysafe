@@ -1,9 +1,11 @@
-import { financeControll } from "./financeControll.js"
-import { reportControll } from "./reportControll.js";
+import { datalistControl } from "./dataListControl.js";
+import { financeControl } from "./financeControl.js"
+import { reportControl } from "./reportControl.js";
 
 const init = () => {
-  financeControll();
-  reportControll();  
+  financeControl();
+  reportControl();
+  datalistControl();
 };
 
 init();

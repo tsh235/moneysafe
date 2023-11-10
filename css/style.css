@@ -185,7 +185,7 @@ fieldset {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  max-height: 560px;
+  max-height: 94%;
   overflow-y: auto;
   width: 94%;
   background-color: #ffffff;
@@ -325,4 +325,96 @@ fieldset {
   position: relative;
   height: 40%;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+  .finance {
+    padding: 15px;
+  }
+  .container {
+    border-radius: 24px;
+    padding: 3%;
+  }
+  .finance__logo {
+    max-width: 150px;
+  }
+  .finance__report {
+    padding: 6px 24px;
+  }
+  .finance__details {
+    padding: 24px 0;
+  }
+  .finance__input,
+  .finance__description {
+    padding: 10px 20px;
+  }
+  .finance__button svg {
+    width: 48px;
+    height: 48px;
+  }
+  .finance__amount {
+    font-size: 40px;
+  }
+  .report {
+    padding: 0;
+  }
+  .report__date label {
+    font-size: 16px;
+  }
+  .report__date input {
+    padding: 6px 12px;
+    font-size: 16px;
+  }
+  .report__button {
+    padding: 6px 16px;
+  }
+  .report__header-cell,
+  .report__cell {
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+  .report__button_table {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  .report__add-button {
+    margin-left: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 16px;
+  }
+  /* .container {
+    padding: 2%;
+  } */
+  .finance__logo {
+    max-width: 130px;
+  }
+  .finance__report {
+    padding: 6px 24px;
+    font-size: 14px;
+  }
+  .finance__balance {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px 30px;
+  }
+  .finance__button {
+    flex-shrink: 0;
+  }
+  .finance__amount {
+    order: 1;
+    width: 100%;
+    font-size: 34px;
+    text-align: center;
+  }
+  .report {
+    width: 100%;
+    max-height: 100%;
+  }
 }

@@ -1,5 +1,5 @@
 export const convertStringNumber = (str) => {
-  const noSpaceStr = str.replace(/\s+/g, ''); // убираем из стоки все пробелыи заменяем их на пустую строчку)
+  const noSpaceStr = String(str).replace(/\s+/g, ''); // убираем из стоки все пробелыи заменяем их на пустую строчку)
   const num = parseFloat(noSpaceStr);
 
   if (!isNaN(num) && isFinite(num)) {
@@ -14,34 +14,7 @@ export const reformateDate = (dateStr) => {
   return `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
 };
 
-// анимация цифр старый вариант
-export const animationNumber_OLD = (element, number) => {
-  const fps = 60;
-  const duration = 1000;
-  const frameDuration = duration / fps;
-  const totalFrame = Math.round(duration / frameDuration);
-
-  let currentFrame = 0;
-
-  const initialNumber = parseInt(element.textContent.replace(/[^0-9.-]+/g, ''));
-
-  const increment = Math.trunc((number - initialNumber) / totalFrame);
-
-  const intervalId = setInterval(() => {
-    currentFrame += 1;
-
-    const newNumber = initialNumber + increment * currentFrame;
-
-    element.textContent = `${newNumber.toLocaleString()} ₽`;
-
-    if (currentFrame === totalFrame) {
-      clearInterval(intervalId);
-      element.textContent = `${number.toLocaleString()} ₽`;
-    }
-  }, frameDuration);
-};
-
-// анимация цифр более правильный вариант
+// анимация цифр
 export const animationNumber = (element, number) => {
   const fps = 60;
   const duration = 1000;
