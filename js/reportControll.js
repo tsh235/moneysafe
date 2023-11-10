@@ -21,7 +21,7 @@ const closeReport = ({target}) => {
       opacity: 0,
       scale: 0,
       duration: 0.5,
-      easy: "power2.in",
+      ease: "power2.in",
       onComplete() {
         report.style.visibility = 'hidden';
       }
@@ -38,7 +38,7 @@ const openReport = () => {
     opacity: 1,
     scale: 1,
     duration: 0.5,
-    easy: "power2.out",
+    ease: "power2.out",
   });
 
   document.addEventListener('click', closeReport);
@@ -47,7 +47,7 @@ const openReport = () => {
 const renderReport = (data) => {
   reportOperationList.textContent = '';
 
-  const reportRows = data.map(({category, amount, description, date, type}) => {
+  const reportRows = data.map(({category, amount, description, date, type, id}) => {
     const reportRow = document.createElement('tr');
     reportRow.classList.add('report__row');
     reportRow.innerHTML = `
@@ -57,7 +57,7 @@ const renderReport = (data) => {
       <td class="report__cell">${reformateDate(date)}</td>
       <td class="report__cell">${typesOperation[type]}</td>
       <td class="report__action-cell">
-      <button class="report__button report__button_table">&#10006;</button>
+        <button class="report__button report__button_table" data-id="${id}">&#10006;</button>
       </td>
       `;
 
@@ -68,12 +68,17 @@ const renderReport = (data) => {
 };
 
 export const reportControll = () => {
+  reportOperationList.addEventListener('click', ({target}) => {
+    console.log(target.dataset.id);
+
+  });
+
   financeReport.addEventListener('click', async () => {
     const textContent = financeReport.textContent;
     financeReport.textContent = 'Загрузка...';
     financeReport.disabled = true;
   
-    const data = await getData('/test');
+    const data = await getData('/finance');
   
     financeReport.textContent = textContent;
     financeReport.disabled = false;
@@ -99,7 +104,7 @@ export const reportControll = () => {
   
     const queryString = searchParams.toString();
   
-    const url = queryString ? `/test?${queryString}` : '/test';
+    const url = queryString ? `/finance?${queryString}` : '/finance';
   
     const data = await getData(url);
   

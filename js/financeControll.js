@@ -1,4 +1,5 @@
-import { convertStringNumber } from "./helpers.js";
+import { animationNumber, convertStringNumber } from "./helpers.js";
+import { getData, postData } from "./service.js";
 
 const financeForm = document.querySelector('.finance__form');
 const financeAmount = document.querySelector('.finance__amount');
@@ -6,22 +7,46 @@ const financeAmount = document.querySelector('.finance__amount');
 let amount = 0;
 financeAmount.textContent = amount;
 
-export const financeControll = () => {
-  financeForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+const addNewOperation = async (e) => {
+  e.preventDefault();
+
+  const typeOperation = e.submitter.dataset.typeOperation;
+
+  const financeFormData = Object.fromEntries(new FormData(financeForm));
+  financeFormData.type = typeOperation;
+
+  const newOperation = await postData('/finance', financeFormData)
+
+  const changeAmount = Math.abs(convertStringNumber(newOperation.amount));
   
-    const typeOperation = e.submitter.dataset.typeOperation;
-  
-    const changeAmount = Math.abs(convertStringNumber(financeForm.amount.value));
+  if (typeOperation === 'income') {
+    amount += changeAmount;
+  }
+
+  if (typeOperation === 'expenses') {
+    amount -= changeAmount;
+  }
+
+  animationNumber(financeAmount, amount);
+  financeForm.reset();
+};
+
+export const financeControll = async () => {
+  const operations = await getData('/finance');
+
+  amount = operations.reduce((acc, item) => {
+    if (item.type === 'income') {
+      acc += convertStringNumber(item.amount);
+    }
     
-    if (typeOperation === 'income') {
-      amount += changeAmount;
+    if (item.type === 'expenses') {
+      acc -= convertStringNumber(item.amount);
     }
-  
-    if (typeOperation === 'expenses') {
-      amount -= changeAmount;
-    }
-  
-    financeAmount.textContent = `${amount.toLocaleString()} ₽`; // на русской раскладке значок рубля alt+ctrl+8
-  });
+
+    return acc;
+  }, 0);
+
+  animationNumber(financeAmount, amount);
+
+  financeForm.addEventListener('submit', addNewOperation);
 }
